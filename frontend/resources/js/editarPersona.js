@@ -5,7 +5,7 @@ tablita.addEventListener("click", (e) => {
     let boton = e.target;
     valor = e.target.value;
     let primeraFila = tablita.rows[valor - 1];
-    valorDelTD = primeraFila.cells[0].textContent;  // Asignar el valor aquí
+    valorDelTD = primeraFila.cells[0].textContent;
 
     function mostrarModal() {
         const apiUrl = 'http://127.0.0.1:8000/api/persona/' + valorDelTD;
@@ -36,7 +36,7 @@ tablita.addEventListener("click", (e) => {
             let nombre = data["nombre"];
             if (!mensajeMostrado) {
                 mostrarMensaje("Persona " + nombre + " eliminada correctamente");
-                mensajeMostrado = true;  // Marcar que el mensaje se ha mostrado
+                mensajeMostrado = true;
             }
             mostrarTabla();
         })
@@ -48,11 +48,10 @@ document.getElementById('editarPersona').addEventListener('click', () => {
     const apiUrl = 'http://127.0.0.1:8000/api/persona/' + valorDelTD;
     let nombre = document.getElementById("nombreActualizar").value;
     let tipo = document.getElementById("tipoActualizar").value;
-    let edad = parseInt(document.getElementById("edadActualizar").value);  // Convertir a número
-    let grado = parseInt(document.getElementById("gradoActualizar").value);  // Convertir a número
+    let edad = parseInt(document.getElementById("edadActualizar").value);
+    let grado = document.getElementById("gradoActualizar").value;
     let fecha = document.getElementById("fechaActualizar").value;
 
-    // Verificar tipos de datos
     let errores = [];
     if (!esTipoDatoCorrecto(nombre, 'string')) {
         errores.push('Nombre debe ser de tipo string.');
@@ -66,17 +65,17 @@ document.getElementById('editarPersona').addEventListener('click', () => {
         errores.push('Edad debe ser de tipo number.');
         limpiarCampo('edadActualizar');
     }
-    if (isNaN(grado)) {
-        errores.push('Grado debe ser de tipo number.');
+    if (!validarFormatoGrado(grado)) {
+        errores.push('Grado debe ser un número seguido de %.');
         limpiarCampo('gradoActualizar');
     }
-    if (!esTipoDatoCorrecto(fecha, 'string')) {
-        errores.push('Fecha debe ser de tipo string.');
+    if (!validarFormatoFecha(fecha)) {
+        errores.push('Fecha debe tener un formato válido.');
         limpiarCampo('fechaActualizar');
     }
 
     if (errores.length > 0) {
-        mostrarMensajeEditar('Errores de tipo de datos:\n' + errores.join('\n'));
+        mostrarMensajeEditar('Errores de tipo de datos o formato:\n' + errores.join('\n'));
         return;
     }
 
@@ -101,12 +100,10 @@ document.getElementById('editarPersona').addEventListener('click', () => {
         let nombre = data["nombre"];
         if (!mensajeMostrado) {
             mostrarMensajeEditar("Persona " + nombre + " editada correctamente");
-            mensajeMostrado = true;  // Marcar que el mensaje se ha mostrado
+            mensajeMostrado = true;
         }
         mostrarTabla();
-        modalEditar.style.display = "none"; // Cerrar modal después de actualizar
-        mostrarMensajeEditar("Persona " + nombre + " editada correctamente"); // Mostrar mensaje de éxito
-        mensajeMostrado = true;  // Marcar que el mensaje se ha mostrado
+        modalEditar.style.display = "none";
     })
     .catch(error => {
         console.error('Error al editar pacientes:', error);
@@ -114,16 +111,24 @@ document.getElementById('editarPersona').addEventListener('click', () => {
     });
 });
 
+function validarFormatoGrado(grado) {
+    const regexGrado = /^\d+(\.\d+)?%$/;
+    return regexGrado.test(grado);
+}
+
+function validarFormatoFecha(fecha) {
+    const regexFecha = /^\d{4}-\d{2}-\d{2}$/;
+    return regexFecha.test(fecha);
+}
+
 function mostrarMensajeEditar(mensaje) {
     mensajeDiv.innerHTML = mensaje;
 }
 
-// Función para verificar el tipo de dato
 function esTipoDatoCorrecto(valor, tipo) {
     return typeof valor === tipo;
 }
 
-// Función para limpiar el campo
 function limpiarCampo(idCampo) {
     document.getElementById(idCampo).value = "";
 }

@@ -9,10 +9,9 @@ document.getElementById('agregar').addEventListener('click', async () => {
         let nombre = document.getElementById('nombre').value;
         let tipo = document.getElementById('tipo').value;
         let edad = parseInt(document.getElementById('edad').value);
-        let grado = parseInt(document.getElementById('grado').value);
+        let grado = document.getElementById('grado').value;
         let fecha = document.getElementById('fecha').value;
 
-        // Verificar tipos de datos
         let errores = [];
         if (!esTipoDatoCorrecto(nombre, 'string')) {
             errores.push('Nombre debe ser de tipo string.');
@@ -26,12 +25,12 @@ document.getElementById('agregar').addEventListener('click', async () => {
             errores.push('Edad debe ser de tipo number.');
             limpiarCampo('edad');
         }
-        if (isNaN(grado)) {
-            errores.push('Grado debe ser de tipo number.');
+        if (!validarFormatoGrado(grado)) {
+            errores.push('Grado debe tener el formato correcto (números seguidos de % y estar entre 0 y 100).');
             limpiarCampo('grado');
         }
-        if (!esTipoDatoCorrecto(fecha, 'string')) {
-            errores.push('Fecha debe ser de tipo string.');
+        if (!validarFormatoFecha(fecha)) {
+            errores.push('Fecha debe tener el formato correcto (YYYY-MM-DD).');
             limpiarCampo('fecha');
         }
 
@@ -64,13 +63,11 @@ document.getElementById('agregar').addEventListener('click', async () => {
         const data = await response.json();
         mostrarTabla();
         mostrarMensaje("Paciente agregado con éxito");
-        // Restablecer los valores de los campos
         document.getElementById('nombre').value = "";
         document.getElementById('tipo').value = "";
         document.getElementById('edad').value = "";
         document.getElementById('grado').value = "";
         document.getElementById('fecha').value = "";
-        // Cerrar el modal
         modalAgregar.style.display = "none";
     } catch (error) {
         console.error(error);
@@ -82,12 +79,20 @@ function mostrarMensaje(mensaje) {
     mensajeDiv.innerHTML = mensaje;
 }
 
-// Función para verificar el tipo de dato
 function esTipoDatoCorrecto(valor, tipo) {
     return typeof valor === tipo;
 }
 
-// Función para limpiar el campo
 function limpiarCampo(idCampo) {
     document.getElementById(idCampo).value = "";
+}
+
+function validarFormatoFecha(fecha) {
+    const regexFecha = /^\d{4}-\d{2}-\d{2}$/;
+    return regexFecha.test(fecha);
+}
+
+function validarFormatoGrado(grado) {
+    const regexGrado = /^(100(\.0{1,2})?|[1-9]?\d(\.\d{1,2})?|\d(\.\d{1,2})?)%$/;
+    return regexGrado.test(grado);
 }
