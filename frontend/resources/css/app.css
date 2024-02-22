@@ -8,15 +8,64 @@ body {
     background-position: bottom;
     background-size: cover;
     height: 100vh;
+    margin: 0;
 }
 
 body button:hover {
     background-color: deepskyblue;
 }
 
+
+.menu-lateral {
+    width: 250px;
+    height: 100%;
+    position: fixed;
+    top: 0;
+    left: 0;
+    background-color: #b9f9ff62;
+    transition: 0.3s;
+    padding-top: 20px;
+    text-align: center;
+}
+
+.menu-lateral button {
+    display: block;
+    width: 80%;
+    padding: 10px;
+    margin: 10px auto;
+    background-color: #427bf5;
+    color: #fff;
+    border: none;
+    text-align: center;
+    text-decoration: none;
+    font-size: 16px;
+    cursor: pointer;
+}
+
+.menu-lateral input {
+    display: block;
+    width: 80%;
+    padding: 10px;
+    margin: 10px auto;
+    text-align: center;
+}
+
+.contenido-principal {
+    margin-left: 250px;
+    transition: 0.3s;
+    padding: 15px;
+}
+
+.menu-lateral-btn {
+    font-size: 30px;
+    cursor: pointer;
+    margin-left: 10px;
+}
+
 h1,
-h2 {
+h2, .mensaje {
     color: black;
+    text-align: center;
 }
 
 .modal {
@@ -79,16 +128,13 @@ h2 {
 .myBtn2 {
     color: black;
 }
-#buscar {
+
+.buscar {
     border: none;
     border-radius: 5px;
     font-size: 16px;
     height: auto;
-    margin: 0;
-    outline: 0;
-    padding: 15px;
     background-color: #a1d1f5;
     color: black;
     box-shadow: 0 1px 0 rgba(0, 0, 0, 0.03) inset;
-    margin-bottom: 30px;
 }

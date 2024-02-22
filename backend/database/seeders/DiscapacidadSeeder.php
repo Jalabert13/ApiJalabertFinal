@@ -16,7 +16,7 @@ class DiscapacidadSeeder extends Seeder
         $persona1->nombre = "Juan Pérez";
         $persona1->tipo = "Física";
         $persona1->edad = 30;
-        $persona1->grado = "Moderada";
+        $persona1->grado = 60;
         $persona1->fecha = "2022-02-19";
         $persona1->timestamps = false;
         $persona1->save();
@@ -25,7 +25,7 @@ class DiscapacidadSeeder extends Seeder
         $persona2->nombre = "Ana Rodríguez";
         $persona2->tipo = "Visual";
         $persona2->edad = 25;
-        $persona2->grado = "Severa";
+        $persona2->grado = 70;
         $persona2->fecha = "2022-02-20";
         $persona2->timestamps = false;
         $persona2->save();
@@ -34,7 +34,7 @@ class DiscapacidadSeeder extends Seeder
         $persona3->nombre = "Carlos Gómez";
         $persona3->tipo = "Auditiva";
         $persona3->edad = 35;
-        $persona3->grado = "Leve";
+        $persona3->grado = 60;
         $persona3->fecha = "2022-02-21";
         $persona3->timestamps = false;
         $persona3->save();
@@ -43,16 +43,16 @@ class DiscapacidadSeeder extends Seeder
         $persona4->nombre = "María López";
         $persona4->tipo = "Intelectual";
         $persona4->edad = 28;
-        $persona4->grado = "Moderada";
+        $persona4->grado = 20;
         $persona4->fecha = "2022-02-22";
         $persona4->timestamps = false;
         $persona4->save();
         
         $persona5 = new persona;
         $persona5->nombre = "Pedro Martínez";
-        $persona5->tipo = "Múltiple";
+        $persona5->tipo = 45;
         $persona5->edad = 40;
-        $persona5->grado = "Severa";
+        $persona5->grado = 18;
         $persona5->fecha = "2022-02-23";
         $persona5->timestamps = false;
         $persona5->save();
